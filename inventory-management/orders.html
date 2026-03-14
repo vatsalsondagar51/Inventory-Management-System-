@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orders – Inventory Manager</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="logo">
+        <span class="logo-icon">📦</span>
+        <span>Inventory Manager</span>
+      </div>
+      <nav class="nav">
+        <a href="dashboard.html" class="nav-link">
+          <img src="icons/dashboard.png" alt="" class="nav-icon" aria-hidden="true">
+          <span>Dashboard</span>
+        </a>
+        <a href="inventory.html" class="nav-link">
+          <img src="icons/inventory.png" alt="" class="nav-icon" aria-hidden="true">
+          <span>Inventory</span>
+        </a>
+        <a href="orders.html" class="nav-link active">
+          <img src="icons/order.png" alt="" class="nav-icon" aria-hidden="true">
+          <span>Orders</span>
+        </a>
+        <a href="delivery.html" class="nav-link">
+          <img src="icons/delivery.png" alt="" class="nav-icon" aria-hidden="true">
+          <span>Delivery</span>
+        </a>
+        <a href="suppliers.html" class="nav-link">
+          <img src="icons/supplier.png" alt="" class="nav-icon" aria-hidden="true">
+          <span>Suppliers</span>
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <span class="user-email" id="sidebar-email"></span>
+        <button type="button" class="btn btn-ghost btn-sm" id="logout-btn">Log out</button>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="page-header">
+        <h1>Orders</h1>
+        <p class="subtitle">Create and track purchase and sales orders</p>
+        <button type="button" class="btn btn-primary" id="add-order-btn">New order</button>
+      </header>
+      <div class="toolbar">
+        <select id="order-filter" class="input" aria-label="Filter by status">
+          <option value="">All statuses</option>
+          <option value="pending">Pending</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="processing">Processing</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      <div class="card">
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer / Supplier</th>
+                <th>Items</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="orders-tbody">
+              <tr><td colspan="6" class="muted">No orders yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+  <div id="order-modal" class="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h2 id="order-modal-title">New order</h2>
+        <button type="button" class="modal-close" data-close aria-label="Close">&times;</button>
+      </div>
+      <form id="order-form">
+        <input type="hidden" id="order-id" />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="order-type">Type</label>
+            <select id="order-type">
+              <option value="purchase">Purchase</option>
+              <option value="sale">Sale</option>
+            </select>
+          </div>
+          <div class="form-group flex-2">
+            <label for="order-party">Customer / Supplier name</label>
+            <input type="text" id="order-party" required placeholder="Company or person name" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Items</label>
+          <div id="order-items-list"></div>
+          <button type="button" class="btn btn-ghost btn-sm" id="add-order-item">+ Add item</button>
+        </div>
+        <div class="form-group">
+          <label for="order-notes">Notes</label>
+          <textarea id="order-notes" rows="2" placeholder="Optional notes"></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" data-close>Cancel</button>
+          <button type="submit" class="btn btn-primary">Save order</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="js/auth.js"></script>
+  <script src="js/data.js"></script>
+  <script>if (window.location.protocol !== 'file:') window.API_BASE = 'api/';</script>
+  <script src="js/api.js"></script>
+  <script src="js/orders.js"></script>
+</body>
+</html>
